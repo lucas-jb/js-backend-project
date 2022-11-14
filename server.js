@@ -2,8 +2,8 @@ const express = require('express');
 
 const app = express();
 
-app.get('/', function(req,res){
-    res.send('Hola mundo');
+app.get('/saludo', (req,res)=>{
+    res.send(`Hola ${req.query.name}`);
 });
 
 app.listen(3300);
