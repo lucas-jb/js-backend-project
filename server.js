@@ -1,16 +1,19 @@
 const express = require('express');
+const sqlite3 = require('sqlite3');
 const bodyParser = require('body-parser');
+const Sequelize = require('sequelize');
+const methodOverride = require('method-override');
 
 const app = express();
-app.use(bodyParser.urlencoded({extended:true}));
 
+const tasksRoutes = require('./routes/tasks_routes');
+const registrationsRoutes = require('./routes/registrations_routes');
 
-app.get('/saludo', (req,res)=>{
-    res.send(`Hola ${req.query.name}`);
-});
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
+app.set('view engine', 'pug');
 
-app.post('/', (req,res)=>{
-    res.send(`Hola ${req.body.name}`);
-})
+app.use(tasksRoutes);
+app.use(registrationsRoutes);
 
 app.listen(3300);
