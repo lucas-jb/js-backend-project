@@ -2,4 +2,7 @@ doctype html
 html
     head
         title Tareas
-    body 
+    body
+        ul
+            each task in tasks ? tasks : []
+                li= task.description
