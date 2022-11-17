@@ -7,10 +7,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 let db = new sqlite3.Database('js-backend-project');
-//db.run('CREATE TABLE tasks(id int AUTO_INCREMENT, description varchar(255))');
 
 app.post('/pendientes', (req,res)=>{
-    db.run("INSERT INTO tasks(description) VALUES('Hola mundo')");
+    db.run(`INSERT INTO tasks(description) VALUES(?)`,req.body.description);
     res.send('Inserción finalizada')
 });
 
