@@ -1,0 +1,8 @@
+doctype html
+html(lang="en")
+    head
+        title Document
+    body
+        form(action=`/tasks/${task.id}?_method=PUT` method="POST")
+            textarea(name="description" placeholder="Introduce la tarea")= task.description
+            input(type="submit" value="Guardar")
