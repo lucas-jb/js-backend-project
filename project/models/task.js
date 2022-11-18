@@ -1,4 +1,7 @@
 'use strict';
+
+const socket = require('../realtime/client');
+
 const {
   Model
 } = require('sequelize');
@@ -21,5 +24,9 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Task',
   });
+
+  Task.afterCreate((task,options)=>{
+    socket.emit('new_task',task)
+  })
   return Task;
 };
