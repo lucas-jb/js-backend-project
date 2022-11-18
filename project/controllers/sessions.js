@@ -10,10 +10,16 @@ module.exports = {
                 if(user){
                     req.session.userId = user.id;
                 }
+                res.json(user);
             })
             .catch(err=>{
                 console.log(err);
                 res.json(err);
             })
+    },
+    destroy: (req,res)=>{
+        req.session.destroy(()=>{
+            res.redirect('/sessions');
+        })
     }
 }

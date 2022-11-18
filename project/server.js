@@ -10,6 +10,9 @@ const tasksRoutes = require('./routes/tasks_routes');
 const registrationsRoutes = require('./routes/registrations_routes');
 const sessionsRoutes = require('./routes/sessions_routes');
 
+const findUserMiddleware = require('./middleware/find_user');
+const authUser = require('./middleware/auth_user');
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.set('view engine', 'pug');
@@ -20,8 +23,15 @@ app.use(session({
     resave: false
 }));
 
+app.use(findUserMiddleware);
+app.use(authUser);
+
 app.use(tasksRoutes);
 app.use(registrationsRoutes);
 app.use(sessionsRoutes);
+
+app.get('/', (req,res)=>{
+    res.render('home', {user: req.user});
+})
 
 app.listen(3300);
