@@ -17,6 +17,7 @@
     "pug": "^3.0.2",
     "sequelize": "^6.25.6",
     "socket.io": "^4.5.3",
+    "socket.io-client": "^4.5.3",
     "sqlite3": "^5.1.2"
   }
 }
