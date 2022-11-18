@@ -5,7 +5,9 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Task extends Model {
     static associate(models) {
-      // define association here
+      Task.belongsTo(models.User,{
+        as: 'user'
+      });
     }
   }
   Task.init({
@@ -14,5 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Task',
   });
+
+  
+
   return Task;
 };
