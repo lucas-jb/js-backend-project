@@ -47,9 +47,9 @@ let usersCount = 0;
 io.on('connection',(socket)=>{
     usersCount++;
 
-    io.emit('cont_updated',{count: usersCount})
+    io.emit('count_updated',{count: usersCount})
 
-    socket.on('disconnetct',()=>{
+    socket.on('disconnect',()=>{
         usersCount--;
     })
 })
