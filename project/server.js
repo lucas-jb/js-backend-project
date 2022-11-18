@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const methodOverride = require('method-override');
 const session = require('express-session');
+
+const socketio = require('socket.io');
+
 const app = express();
 
 const tasksRoutes = require('./routes/tasks_routes');
@@ -37,4 +40,16 @@ app.get('/', (req,res)=>{
     res.render('home', {user: req.user});
 })
 
-app.listen(3300);
+let server = app.listen(3300);
+let io = socketio(server);
+
+let usersCount = 0;
+io.on('connection',(socket)=>{
+    usersCount++;
+
+    io.emit('cont_updated',{count: usersCount})
+
+    socket.on('disconnetct',()=>{
+        usersCount--;
+    })
+})
