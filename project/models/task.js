@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
       Task.belongsTo(models.User,{
         as: 'user'
       });
+      
+      Task.belongsToMany(models.Category,{
+        through: 'TaskCategories',
+        as: 'categories'
+      });
     }
   }
   Task.init({
@@ -16,8 +21,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Task',
   });
-
-  
-
   return Task;
 };

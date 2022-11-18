@@ -13,7 +13,8 @@ module.exports = {
                 {
                     model: User,
                     as: 'user'
-                }
+                },
+                'categories'
             ]
         }).then((task)=>{
             res.render('tasks/show',{task:task});
@@ -45,12 +46,15 @@ module.exports = {
         });
     },
     update: (req,res)=>{
-        Task.update({description: req.body.description},{
-            where: {
-                id: req.params.id
-            }
-        }).then((response)=>{
-            res.redirect(req.params.id);
+        let task = Task.findByPk(req.params.id).then(task=>{
+            task.description = req.body.description;
+            task.save().then(()=>{
+                let categoryIds = req.body.categories.split(",");
+                
+                task.addCategories(categoryIds).then(()=>{
+                    res.redirect(`/tasks/${task.id}`);
+                })
+            })
         })
     },
     new: (req,res)=>{
